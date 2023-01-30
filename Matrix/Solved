@@ -1,4 +1,4 @@
-- Leetcode 566 Reshape the Matrix (EASY)
+Leetcode 566 Reshape the Matrix (EASY)
 
 function matrixReshape(mat: number[][], r: number, c: number): number[][] {
     let matRows = mat.length
@@ -31,7 +31,7 @@ function matrixReshape(mat: number[][], r: number, c: number): number[][] {
     return finalMatrix
 };
 
-- Leetcode 48 Rotate Image (Medium)
+Leetcode 48 Rotate Image (Medium)
 
 function rotate(matrix: number[][]): void {
    
@@ -65,3 +65,22 @@ function rotate(matrix: number[][]): void {
 
 };
 
+Leetcode 867, Transpose Matrix
+
+function transpose(matrix: number[][]): number[][] {
+    let finalArr = []
+    let length = matrix[0].length
+
+    for(let i = 0; i < length; i++){
+        finalArr.push([])
+        for(let j = 0; j < matrix.length; j++){
+            // console.log(matrix[j][i])
+            finalArr[i].push(matrix[j][i])
+        }
+        // console.log("===BREAK===")
+    }
+    return finalArr
+};
+
+~90th percentile for both time and space complexity, weird. 
+No tricks, no. Rows on new finalArr will = no. Col in initial matrix. Push opposite i.e. [i][j] = [j][i]
