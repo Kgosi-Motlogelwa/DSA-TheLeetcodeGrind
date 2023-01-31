@@ -1,0 +1,43 @@
+Leetcode 658 - Find K Closest Elements
+
+function findClosestElements(arr: number[], k: number, x: number): number[] {
+    // Create difference array
+    let diffArr = []
+    let uniqueDiffs = []
+    let uniqueDiffsMap = new Map()
+    let map = new Map()
+    for(let i = 0; i < arr.length; i++){
+        let diff = Math.abs(arr[i]-x)
+        if(!uniqueDiffsMap.has(diff)){
+            uniqueDiffsMap.set(diff, map)
+            uniqueDiffs.push(diff)
+        }
+        
+        diffArr.push(diff)
+        if(!map.has(diff)){
+            map.set(diff, [arr[i]] )
+        }else{
+            map.get(diff).push(arr[i])
+        }
+    }
+    uniqueDiffs.sort((a,b)=>a-b)
+    
+    let order = []
+    uniqueDiffs.forEach((val)=>{
+        order.push(...map.get(val))
+    })
+
+    let final = []
+    let i = 0
+    while(k > 0){
+        final.push(order[i])
+        k--
+        i++
+    }
+    final.sort((a,b)=>a-b)
+
+    return final
+};
+
+Not fantastic solution. Didn't feel like a medium level problem. 45th and 6th percentile Time and Space complexity respectively.
+Need to redo using sliding window. Maybe if you good with manipulating hashtables and arrays sliding window problem will be easy.
