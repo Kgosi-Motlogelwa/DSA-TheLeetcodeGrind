@@ -1,0 +1,20 @@
+Leetcode 46 - Permutation
+
+function permute(nums: number[]): number[][] {
+    let finalList = []
+
+    const backtrack = (choice = [], remaining = nums) => {
+        if(remaining.length === 0){
+            finalList.push([...choice])
+            return false
+        }
+        for(let i = 0; i < remaining.length; i++){
+            choice.push(remaining[i])
+            let remain = remaining.filter((val, index)=> index  !== i)
+            backtrack(choice, remain)
+            choice.pop()
+        }
+    }
+    backtrack()
+    return finalList
+};
