@@ -111,7 +111,7 @@ function subsetsWithDup(nums: number[]): number[][] {
 };
 
 Leetcode 22 - Generate Paranthesis
-https://imgur.com/Bu6sn8L
+https://imgur.com/Bu6sn8L - [The graphs]
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
@@ -141,7 +141,7 @@ This problem was really challanging. I needed to find the graph of paranthesis b
 Backtracking doesn't have to follow the 
 
 Leetcode 48 - Permutations
-https://imgur.com/C8727Be
+https://imgur.com/C8727Be - [The graphs]
 
 function permute(nums: number[]): number[][] {
     let finalList = []
