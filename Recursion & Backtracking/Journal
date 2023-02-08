@@ -18,3 +18,11 @@ Leetcode 78 - Subsets
 Leetcode 22 - Paranthesis
 Leetcode 46 - Permutation
 
+Steps to solve recusive backtracking
+- Indentify that it is brute-force, backtracking
+    1. Am I generating a lot of array within arrays
+- Draw the graph
+    1. Start with empty arrays and make choices
+    2. For example Leetcode 48 permutations: https://imgur.com/C8727Be
+- Follow the blueprint for backtracking: 
+    1. https://medium.com/analytics-vidhya/the-blueprint-to-solve-any-backtracking-problem-b3640a3dcbd7
