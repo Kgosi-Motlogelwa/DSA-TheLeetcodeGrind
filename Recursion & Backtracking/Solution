@@ -135,4 +135,5 @@ class Solution:
         
         backtracking(0,0)
         return res
-
+        
+This problem was really challanging. I needed to find the graph of paranthesis before I started.
