@@ -110,3 +110,29 @@ function subsetsWithDup(nums: number[]): number[][] {
     return finalList
 };
 
+Leetcode 22 - Generate Paranthesis
+
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        stack = []
+        res = []
+        
+        def backtracking(openPar, closedPar):
+            if openPar == closedPar == n:
+                print("stack: ", "".join(stack))
+                res.append("".join(stack))
+                return
+            
+            if openPar < n:
+                stack.append("(")
+                backtracking(openPar+1, closedPar)
+                stack.pop()
+                
+            if closedPar < openPar:
+                stack.append(")")
+                backtracking(openPar, closedPar+1)
+                stack.pop()
+        
+        backtracking(0,0)
+        return res
+
