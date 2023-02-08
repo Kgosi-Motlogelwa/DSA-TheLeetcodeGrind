@@ -111,6 +111,7 @@ function subsetsWithDup(nums: number[]): number[][] {
 };
 
 Leetcode 22 - Generate Paranthesis
+https://imgur.com/Bu6sn8L
 
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
@@ -137,3 +138,41 @@ class Solution:
         return res
         
 This problem was really challanging. I needed to find the graph of paranthesis before I started.
+Backtracking doesn't have to follow the 
+
+Leetcode 48 - Permutations
+https://imgur.com/C8727Be
+
+function permute(nums: number[]): number[][] {
+    let finalList = []
+    
+    const backtracking = (choice, remain = nums) => {
+        if(remain.length === 0){
+            return
+           }
+    
+        for(let i = 0; i < remain.length; i++){
+            choice.push(remain[i])
+            let newRemain = []
+            
+            if(choice.length === nums.length){
+                let temp = []
+                choice.forEach(val => {
+                    temp.push(val)
+                })
+                finalList.push(temp)
+            }
+            let newChoice = (remain.slice(0, i)).concat(remain.slice(i+1))
+            backtracking(choice, newChoice)
+            choice.pop()
+        }
+    }
+    backtracking([], nums)
+    return finalList
+};
+
+I re-did the problem. It's kinda tricky. It took me maybe an hour. For backtracking start with:
+- Draw a graph
+  1. Start with an empty graph and populate it until your final answers are at the bottom. https://imgur.com/Bu6sn8L
+  2. Then go back up and find the other paths
+- Solve the problem using recursion always. Can weird like Generate Paranthesis
