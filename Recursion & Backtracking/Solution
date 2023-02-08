@@ -18,3 +18,95 @@ function permute(nums: number[]): number[][] {
     backtrack()
     return finalList
 };
+
+Leetcode 78 - Subset
+
+function subsets(nums: number[]): number[][] {
+    let finalList = [[]]
+    nums.forEach(val => {
+        finalList.push([val])
+    })
+
+    if(nums.length <= 1){
+        return finalList
+    }
+    let map = new Map()
+
+    const backtracking = (choice = [], remaining = nums) => {
+        if(remaining.length === 0){
+            return
+        }
+
+        for(let i = 0; i < remaining.length; i++){
+            choice.push(remaining[i])
+            let listTemp = []
+            choice.forEach(val=>listTemp.push(val))
+            if(listTemp.length > 1){
+               finalList.push(listTemp) 
+            }
+            backtracking(choice, remaining.slice(i+1))
+            choice.pop()
+        }
+    }
+    backtracking()
+
+    return finalList
+};
+
+Leetcode 90 - Subset II
+
+function subsetsWithDup(nums: number[]): number[][] {
+    nums.sort((a,b)=>a-b)
+    let finalList = [[]]
+    let map = new Map()
+    nums.forEach(val=>{
+        let tempStr = val.toString()
+        if(!map.has(tempStr)){
+            map.set(tempStr, 1)
+            finalList.push([val])
+        }
+        
+    })
+
+    if(nums.length <= 1){
+        return finalList
+    }
+
+    let mapChoiceSort = new Map()
+
+    const backtracking = (choice = [], remain = nums) => {
+        if(remain.length === 0){
+            return
+        }
+        
+
+        for(let i = 0; i < remain.length; i++){
+            choice.push(remain[i])
+
+            let choiceSort = []
+            choice.forEach(val => {
+                choiceSort.push(val)
+            })
+            
+            choiceSort.sort((a,b)=>a-b)
+            let choiceSortStr = choiceSort.join("")
+            if(!mapChoiceSort.has(choiceSortStr)){
+                mapChoiceSort.set(choiceSortStr, 1)
+                let temp = []
+                choice.forEach(val=>temp.push(val))
+                let tempStr = temp.join("").toString()
+                if(temp.length > 1 && !map.has(tempStr)){
+                    map.set(tempStr, 1)
+                    finalList.push(temp)
+                }
+            }
+           
+            backtracking(choice , remain.slice(i+1))
+            choice.pop()
+        }
+        return
+    }
+    backtracking()
+    return finalList
+};
+
