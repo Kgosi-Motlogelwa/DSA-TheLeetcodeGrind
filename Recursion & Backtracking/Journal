@@ -26,3 +26,106 @@ Steps to solve recusive backtracking
     2. For example Leetcode 48 permutations: https://imgur.com/C8727Be
 - Follow the blueprint for backtracking: 
     1. https://medium.com/analytics-vidhya/the-blueprint-to-solve-any-backtracking-problem-b3640a3dcbd7
+
+=== 08 February 2023 === 
+
+Solved Leetcode 17 - Letter Combination of a Phone Number
+Attempted Leetcode 79 - Word Search. I failed to solve. Need to watch a tutorial on how to solve it.
+
+function exist(board: string[][], word: string): boolean {
+    let map = new Map()
+    let totalPossible = board.length * board[0].length
+    if(word.length > totalPossible){
+        return false
+    }
+    
+    if(board.length === 1){
+        let found = false
+        for(let i = 0; i < board[0].length ; i++){
+            if(board[0][i] === word.charAt(0)){
+               found = true
+             }
+        }
+
+        if(!found){
+            return false
+        }
+    }
+    
+    for(let i = 0; i < board.length ; i++){
+        let row = board[i]
+        for(let j = 0; j < row.length ; j++){
+            if(!map.has(row[j])){
+                map.set(row[j], 1)
+            }else{
+                map.set(row[j], map.get(row[j])+1)
+                board[i][j] = board[i][j] + (Number(map.get(row[j]))).toString()
+            }
+        }
+    }
+    
+    let mapNeighbours = new Map()
+    
+    for(let i = 0; i < board.length ; i++){
+        let row = board[i]
+        
+        for(let j = 0; j < row.length ; j++){
+            let neighbours = []
+            if(row[j+1]){
+                neighbours.push(row[j+1])
+            }
+            if(row[j-1]){
+                neighbours.push(row[j-1])
+            }
+                                     
+            if(board[i+1]){
+                neighbours.push(board[i+1][j])
+            } 
+            
+            if(board[i-1]){
+                neighbours.push(board[i-1][j])
+            } 
+            mapNeighbours.set(row[j], neighbours)
+        }
+    }
+    
+    console.log("mapNeighbours: ", mapNeighbours)
+ 
+    let usedMap = new Map()
+    for(let i = 0; i < word.length - 1; i++){
+        let currentLetter = word.charAt(i)
+        usedMap.set(currentLetter, 1)
+        let potentialNeighbour = []
+        
+        mapNeighbours.forEach((val, key)=>{
+            if(key.charAt(0) === currentLetter){
+                potentialNeighbour = [...potentialNeighbour, ...mapNeighbours.get(key)]
+            }
+        })
+        //console.log("potentialNeighbour: ", potentialNeighbour)
+        
+        let potNeigh = []
+        potentialNeighbour.forEach(val => {
+            if(!usedMap.has(val)){
+                potNeigh.push(val.charAt(0))
+            }
+        })
+        console.log("potNeigh: ", potNeigh)
+        let found = false
+        for(let p = 0; p < potNeigh.length; p++){
+            let val = potNeigh[p]    
+            console.log("val: ", val, "word.charAt(i): ", word.charAt(i+1))
+            if(val === word.charAt(i+1)){
+                console.log("Match")
+                found = true
+                break
+            }
+        }
+        if(!found){
+            return false
+        } 
+       
+    }
+    //console.log("board: ", board)
+    return true
+};
