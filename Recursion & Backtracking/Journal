@@ -129,3 +129,71 @@ function exist(board: string[][], word: string): boolean {
     //console.log("board: ", board)
     return true
 };
+
+=== 05 March 2023 ===
+Have been working on Dynamic Programming - Learn to Solve Algorithmic Problems & Coding Challanges (https://www.youtube.com/watch?v=oBt53YbR9Kk)
+
+Tried to answer bestSum before looking at the video. These three questions are pretty similar.
+const dynamicProg1 = (target = 8, arr = [1,4,5]) => {
+    let smallestVal = Infinity
+    arr.forEach(val => {
+        if(val < smallestVal){
+            smallestVal = val
+        }
+    })
+
+    arr.sort((a,b)=>a-b)
+    let final = []
+
+    const recursion = (current = target, remain = arr, choiceDiff = [], choiceOG = []) => {
+        console.log("current: ", current, "remain: ", remain, "choiceDiff: ", choiceDiff, "choiceOG: ", choiceOG )
+
+        if(current < smallestVal){
+            //console.log("current: ", current, "remain: ", remain, "choiceDiff: ", choiceDiff, "choiceOG: ", choiceOG )
+
+            if(current == 0){
+                final.push(choiceOG)
+            }
+            return
+        }
+
+        for(let i = 0; i < remain.length; i++){
+            let newChoiceVal = current - remain[i]
+            console.log("LOOP")
+            if(current >= smallestVal){
+                choiceDiff.push(newChoiceVal)
+                choiceOG.push(remain[i])
+                let tempChoiceDiff = []
+                choiceDiff.forEach(val => {
+                    tempChoiceDiff.push(val)
+                })
+                let tempChoiceOG = []
+                choiceOG.forEach(val => {
+                    tempChoiceOG.push(val)
+                })
+
+                let newRemain = remain.slice(i+1)
+                recursion(newChoiceVal, newRemain, tempChoiceDiff, tempChoiceOG)
+                choiceOG.pop()
+                choiceDiff.pop()
+            }else{break}
+        }
+        
+
+    }
+    recursion()
+    console.log("final: ",final)
+    let smallest = Infinity
+    let answer = final[0]
+    final.forEach((array, i) =>{
+        if(array.length < smallest){
+            smallest = array.length
+            answer = array
+        }
+    })
+    console.log("answer: ",answer)
+    return smallest !== Infinity ? smallest : 0
+}
+
+dynamicProg1()
+
