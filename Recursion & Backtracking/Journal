@@ -195,5 +195,31 @@ const dynamicProg1 = (target = 8, arr = [1,4,5]) => {
     return smallest !== Infinity ? smallest : 0
 }
 
-dynamicProg1()
+dynamicProg1
+
+=== 06 March 2023 ===
+The above solution is incorrect. I learned the way he solves these problems.
+
+const solution = (target, arr, memo={}) => {
+    if(target in memo){
+        return memo[target]
+    }
+    if(target === 0) {
+        return [] 
+    }
+    if(target < 0) {return null}
+
+    for(let num of arr){
+        let remainder = target - num
+        let partSolution = solution(remainder, arr, memo)
+
+        if(partSolution !== null){
+            memo[target] = [...partSolution, num]
+            console.log("answer: ", memo[target])
+            return memo[target]
+        }
+    }
+    memo[target] = null
+    return null
+}
 
