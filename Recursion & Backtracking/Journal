@@ -223,3 +223,68 @@ const solution = (target, arr, memo={}) => {
     return null
 }
 
+=== 09 March 2023 ===
+Have been struggling with 40. Combination II. Watched a video and copied their solution. I then went onto 216. 
+Combination III thinking it would use a similar technique but no. 
+The conventional way I know how to solve these questions worked. 
+40. Combination II seems to have needed that specific tricky solution where duplicate array item subtrees are skipped.
+
+function combinationSum2(candidates: number[], target: number): number[][] {
+    let final = []
+    candidates.sort((a,b)=> a-b)
+
+    const recursive = (i = 0, targ = target, choice = [], remain=candidates) => {
+        // stopping case
+        if(targ < 0){
+            return
+        }
+
+        // base chase
+        if(targ === 0){
+            final.push(choice.slice())
+        }
+        for(let j = i; j < remain.length; j++){
+            if(j !== i && remain[j - 1] === remain[j]){
+                continue
+            }
+            choice.push(remain[j])
+            recursive(j + 1, targ - remain[j], choice, remain)
+            choice.pop()
+        }
+    }
+    recursive()
+    console.log("final: ", final)
+    return final
+};
+
+
+function combinationSum3(k: number, n: number): number[][] {
+    let final = []
+
+    const dfs = (choice=[], remain=[1,2,3,4,5,6,7,8,9], targ=n) => {
+        // stopping case
+        if(targ < 0){
+            return
+        }
+        //console.log("choice: ", choice, "remain: ", remain, "targ: ", targ, "level: ", level)
+        // base case
+        if(targ === 0){
+            // console.log("00 - choice: ", choice.length, k)
+            if(choice.length == k){
+                // console.log("LENGTH: ", choice)
+                final.push(choice.slice())
+            }
+            return
+        }
+        // loop
+        for(let i = 0; i < remain.length; i++){
+            choice.push(remain[i])
+            let newRemain = remain.slice(i+1)
+            dfs(choice, newRemain, targ-remain[i])
+            choice.pop()
+        }
+    }
+    dfs()
+    // console.log("final: ", final)
+    return final
+};
